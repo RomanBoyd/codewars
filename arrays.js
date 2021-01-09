@@ -6,7 +6,7 @@
 function sumPositive(arr) {
     return arr.filter(e => e > 0).reduce((x, i) => x + i, 0);
   }
-  console.log(sumPositive([1,-4,7,12]));
+  //console.log(sumPositive([1,-4,7,12]));
   
   
   
@@ -15,9 +15,16 @@ function sumPositive(arr) {
   // Строка никогда не будет пустой, и вам не нужно учитывать разные типы данных.
   
   function shortestWord(s) {
-    return s.split(' ').map((e) => e.length).sort((a, b) => a - b).shift();
+    const lens = s.split(' ').map((e) => e.length);
+    return Math.min(...lens)
+    // Math.min(8, 4, 1, 9, 4)
+
+    // const lens = [1, 2, 3];
+    // Math.min(1, 2, 3)
+
+    // return .sort((a, b) => a - b).shift();
   }
-  console.log(shortestWord('bitcoin take over the world maybe who knows perhaps'));
+  //console.log(shortestWord('bitcoin take over the world maybe who knows perhaps'));
   
   
   
@@ -30,9 +37,9 @@ function sumPositive(arr) {
   // filter_list([1,2,'aasf','1','123',123]) == [1,2,123]
   
   function listFiltering(l) {
-    return l.filter(e => e >= 0 && typeof e === 'number');
+    return l.filter(e => typeof e === 'number');
   }
-  console.log(listFiltering([1, 2,'aasf','1','123', 123, -1]));
+  //console.log(listFiltering([1, 2,'aasf','1','123', 123]));
   
   
 
@@ -42,9 +49,13 @@ function sumPositive(arr) {
   // Примечание: функция принимает целое число и возвращает целое число.
   
   function squareDigit(num) {
-    return Number.parseInt(num.toString().split('').map(e => parseInt(e) ** 2).join(''));
+    return +num
+      .toString()
+      .split('')
+      .map(e => e ** 2)
+      .join('');
   }
-  console.log(squareDigit(9119));
+  //console.log(squareDigit(9119));
   
   
 
@@ -58,9 +69,17 @@ function sumPositive(arr) {
   // +++
   
   function generateShape(int){
-    return Array(int).fill().map(e => '+'.repeat(int)).join('\n');
+    let out = '';
+    for (let i = 0; i < int; i++) {
+      out += '+'.repeat(int);
+      if (i < int-1) {
+        out += '\n';
+      }
     }
-  console.log(generateShape(3));
+    return out;
+    //return Array(int).fill('+'.repeat(int)).join('\n');
+    }
+  //console.log(generateShape(3));
   
   
   
@@ -77,7 +96,7 @@ function sumPositive(arr) {
   function friend(friends) {
     return friends.filter(e => e.length === 4);
   }
-  console.log(friend(["Ryan", "Kieran", "Jason", "Yous"]));
+  //console.log(friend(["Ryan", "Kieran", "Jason", "Yous"]));
   
   
   
@@ -87,9 +106,17 @@ function sumPositive(arr) {
   // Входная строка будет состоять только из строчных букв и / или пробелов.
   
   function getCount(str) {
-     return Array.from(str).filter(e => 'aeiou'.includes(e)).length;
+    let out = 0;
+    for (let i = 0; i < str.length; i++) {
+      let t1 = 'aeiou'.includes(str[i]);
+      if (t1 === true) {
+        out += str[i].length
+      }
+    }
+    return out;
+     //return Array.from(str).filter(e => 'aeiou'.includes(e)).length;
   }
-  console.log(getCount('abracadabra'));
+  //console.log(getCount('abracadabra'));
   
   
   
@@ -112,10 +139,29 @@ function sumPositive(arr) {
   // digPow(46288, 3) should return 51 since 4³ + 6⁴+ 2⁵ + 8⁶ + 8⁷ = 2360688 = 46288 * 51
   
   function digPow(n, p) {
-    let num = n.toString().split('').map(e => parseInt(e) ** p++).reduce((a, b) => a + b, 0);
-    return Number.isInteger(num / n) ? num / n : - 1;
+  // i   0  1  2  3
+  //   [ 5, 2, 3, 4 ]
+  // p === 2
+
+  // 5 ** 2 + 2 ** 3 + 3 ** 4 + 4 ** 5
+
+  // acc, number, i
+  // 0    5       0  → 25
+  // 25   2       1  → 33
+  // 33   3       2  → 124
+  // 124  4       3  → 1148
+    const num = n
+      .toString()
+      .split('')
+      .map(Number)
+      .reduce(
+        (acc, number, i) => acc + number ** (p + i),
+        0
+      );
+
+    return num % n === 0 ? num / n : - 1;
   }
-  console.log(digPow(92, 1));
+  //console.log(digPow(92, 1));
   
   
   
@@ -130,7 +176,7 @@ function sumPositive(arr) {
   function arrayDiff(a, b) {
     return a.filter(e => !b.includes(e));
   }
-  console.log(arrayDiff([1, 2, 2, 2, 3], [2]));
+  //console.log(arrayDiff([1, 2, 2, 2, 3], [2]));
   
   
   
@@ -142,9 +188,18 @@ function sumPositive(arr) {
   // Test.assertSimilar( capitals('CodEWaRs'), [0,3,4,6] );
   
   function capitals(word) {
-    return word.split('').map((e, i) => e.toUpperCase() === e ? i : null).filter(x => x != null);
+    return word
+      .split('')
+      .map((e, i) => e.toUpperCase() === e ? i : null)
+      .filter(x => x !== null);
   }
-  console.log(capitals('CodEWaRs'));
+
+  // ['100'] == 100
+  // '' == 0
+  // '0' == 0
+  // '' != '0'
+
+  //console.log(capitals('CodEWaRs'));
   
   
   
@@ -156,9 +211,18 @@ function sumPositive(arr) {
   
   function insertDash(num) {
     //return num.toString().replace(/[13579](?=[13579])/g, "$&-");
-  return num.toString().split('').reduce((a, b) => a[a.length-1] % 2 && b % 2 ? a + '-' + b : a + b);
+  //return num.toString().split('').reduce((a, b) => a[a.length-1] % 2 && b % 2 ? a + '-' + b : a + b);
+    const t1 = num.toString();
+    let sum = '';
+    for (let i = 0; i < t1.length; i++) {
+      sum += t1[i];
+      if (t1[i] % 2 === 1 && i < t1.length - 1 && t1[i + 1] % 2 === 1) {
+        sum += '-';
+      }
+    }
+    return sum;
   }
-  console.log(insertDash(454793));
+  //console.log(insertDash(454793));
   
   
   
@@ -180,9 +244,9 @@ function sumPositive(arr) {
   function countSmileys(arr) {
     let smileys = [":)",";)",":-)",";-)",";~)",":~)",":D",";D",":-D",":~D",";-D",";~D"];
     return arr.filter(e => smileys.includes(e)).length;
-    //return arr.filter(e => e.match(/^[:;][-~]?[)D]$/)).length;
+    // return arr.filter(e => /^[:;][-~]?[)D]$/.test(e)).length;
   }
-  console.log(countSmileys([':)', ';(', ';}', ':-D']));
+  //console.log(countSmileys([':)', ';(', ';}', ':-D']));
   
   
   
@@ -201,7 +265,7 @@ function sumPositive(arr) {
   function arrHomogenous(arrays) {
     return arrays.filter(e => e.length !== 0 && e.every(x => typeof x === typeof e[0]));
   }
-  console.log(arrHomogenous([[1, 5, 4], ['a', 3, 5], ['b'], [], ['1', 2, 3]]));
+  //console.log(arrHomogenous([[1, 5, 4], ['a', 3, 5], ['b'], [], ['1', 2, 3]]));
   
   
   
@@ -220,7 +284,7 @@ function sumPositive(arr) {
   function bingo(ticket, win) {
     return ticket.filter(e => e[0].split('').some(x => x.charCodeAt(0) == e[1])).length >= win ? 'Winner!' : 'Loser!';
   }
-  console.log(bingo([['ABC', 65 ], ['HGR', 74], ['BYHT', 74]], 1));
+  //console.log(bingo([['ABC', 65 ], ['HGR', 74], ['BYHT', 74]], 1));
   
   
   
@@ -249,9 +313,16 @@ function sumPositive(arr) {
     let even = array.filter((_, i) => i % 2 === 0).reduce((a, b) => a+b, 0);
     let odd = array.filter((_, i) => i % 2 === 1).reduce((a, b) => a+b, 0);
     return [even, odd];
+
+    // const arr = [0, 0];
+    // for(let i = 0; i < arr.length; i++) {
+    //     arr[i % 2] += array[i];
+    // }
+    // return arr;
+    
     //return array.reduce((a,b,i)=>(a[i%2]+=b,a),[0,0])
   }
-  console.log(rowWeights([29]));
+  //console.log(rowWeights([29]));
   
   
   
@@ -270,4 +341,219 @@ function sumPositive(arr) {
   function scrollingText(text){
     return Array(text.length).fill(text).map((e, i) => (e.slice(i) + e.slice(0, i)).toUpperCase());
   }
-  console.log(scrollingText("abc"));
+  //console.log(scrollingText("abc"));
+
+
+
+  //116
+//   Реализовать zipWith
+// zipWith принимает функцию и два массива и объединяет массивы вместе, применяя функцию к каждой паре значений.
+// Значение функции - один новый массив.
+// Если массивы имеют неодинаковую длину, результат будет такой же длины, как и самый короткий.
+// (Значения более длинного массива просто не используются.)
+// Входные данные не должны изменяться.
+// Примеры
+// zipWith( Math.pow, [10,10,10,10], [0,1,2,3] )      =>  [1,10,100,1000]
+// zipWith( Math.max, [1,4,7,1,4,7], [4,7,1,4,7,1] )  =>  [4,7,7,4,7,7]
+
+// zipWith( function(a,b) { return a+b; }, [0,1,2,3], [0,1,2,3] )  =>  [0,2,4,6]  Both forms are valid.
+// zipWith( (a,b) => a+b,                  [0,1,2,3], [0,1,2,3] )  =>  [0,2,4,6]  Both are functions.
+
+
+function zipWith(fn, a1, a2) {
+  let out = [];
+  for (let i = 0; i < a1.length && i < a2.length; i++) {
+    out.push(fn(a1[i], a2[i]))
+  }
+  return out;
+}
+const first = ['qwe', 'zz', 'y', 'asdfg'];
+const second = [4, 2, 7, 1, 2];
+
+//console.log(zipWith((a, b) => a + b, first, second));
+//['qwe4', 'zz2', 'y7', 'asdfg1'];
+
+
+
+//117
+// Учитывая массив целых чисел, верните новый массив с удвоением каждого значения.
+// Например:
+// [1, 2, 3] --> [2, 4, 6]
+// Для новичков попробуйте использовать этот map метод - он очень пригодится, 
+// так что его полезно знать.
+
+function maps(x) {
+  return x.map(e => e * 2);
+}
+//console.log(maps([1, 2, 3]));
+
+
+//118
+// Я новичок в кодировании, и теперь я хочу получить сумму двух массивов ... 
+// фактически сумму всех их элементов. Буду признателен за вашу помощь.
+// PS В каждый массив входят только целые числа. Выход - тоже число.
+
+function arrayPlusArray(arr1, arr2) {
+  // let out = 0;
+  // for (let i = 0; i < arr1.length && i < arr2.length; i++) {
+  //  out += arr1[i] + arr2[i];
+  // }
+  //   return out;
+
+  const t1 = arr1.reduce((a, i) => a + i, 0);
+  const t2 = arr2.reduce((a, i) => a + i, 0);
+  return t1 + t2;
+
+  //return arr1.concat(arr2).reduce((acc, cur) => acc + cur);
+}
+//console.log(arrayPlusArray([-1, -2, -3], [-4, -5, -6]));
+
+
+//119
+// Каждое значение в массиве является массивом?
+// Это должно проверить только второе измерение массива. 
+// Значения вложенных массивов не обязательно должны быть массивами.
+// Примеры:
+// [[1],[2]] => true
+// ['1','2'] => false
+// [{1:1},{2:2}] => false
+
+const arrCheck = value => value.every(e => Array.isArray(e));
+//console.log(arrCheck([[1], [2], [3]]));
+//console.log(arrCheck(['A', 'R', 'R', 'A', 'Y']));
+//console.log(arrCheck([[],{}]));
+
+
+//120
+// Сделайте коробку
+// Учитывая число в качестве параметра, верните массив, содержащий строки, 
+// образующие поле.
+// Как это:
+// п = 5
+// [
+//   '-----',
+//   '-   -',
+//   '-   -',
+//   '-   -',
+//   '-----'
+// ]
+
+function box(n){
+  let out = [];
+  out.push('-'.repeat(n));
+  for (let i = 2; i < n; i++) {
+    if (n > 2) {
+    out.push('-' + ' '.repeat(n-2) + '-');
+    }
+  }
+  out.push('-'.repeat(n));
+  return out;
+  // let arr = [] 
+  // for (let i = 0; i < n; i++) {
+  //   if (i === 0 || i === (n - 1)) {
+  //     arr.push('-'.repeat(n))
+  //   } else {
+  //     arr.push(`-${' '.repeat(n - 2)}-`)
+  //   } 
+  // }
+  // return arr
+
+  //return Array.from({length: n}, (a, i) => i === 0 || i === n - 1 ? '-'.repeat(n) : '-' + ' '.repeat(n - 2) + '-');
+ }
+//console.log(box(5));
+
+
+
+//121
+// Магический индекс в массиве A [1 ... n-1] определяется как такой индекс, что A [i] = i. 
+// Учитывая отсортированный массив различных целых чисел, напишите метод для поиска магического 
+// индекса, если он существует, в массиве A.
+
+// findMagic([-20,-10,2,10,20]); // Returns 2
+
+function findMagic(arr) {
+  //Почему не работает цикл?
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === i) {
+      return arr[i];
+    }
+  }
+  return -1;
+
+  // let out = arr.filter((e, i) => e === i);
+  // return out.lenght === 0 ? -1 : out[0];
+
+  // return arr.findIndex(i => arr[i] === i);
+}
+//console.log(findMagic([-20, -10, 2, 10, 20]));
+
+
+
+//122
+// Вызов:
+// Учитывая двумерный массив целых чисел, верните уплощенную версию массива со всеми целыми числами 
+// в отсортированном (возрастающем) порядке.
+// Пример:
+// [[3, 2, 1], [4, 6, 5], [], [9, 7, 8]], ваша функция должна возвращать [1, 2, 3, 4, 5, 6, 7, 8 , 9].
+// Дополнение:
+// Учтите, что JavaScript по умолчанию сортирует объекты по алфавиту. За дополнительной информацией 
+// обращайтесь:
+
+// http://stackoverflow.com/questions/6093874/why-doesnt-the-sort-function-of-javascript-work-well
+
+[1,[1,[[[[[[[5]]], 7, [888, [[[[[[9]]]]]]]]]]]]].flat(Infinity);
+
+function flattenAndSort(arr) {
+  // let out = [];
+  // for (const i of arr) {
+  //   // for (const k of i) {
+  //   //   out.push(k);
+  //   // }
+  //   out.push(...i);
+  // }
+  const out = arr.flat();
+  return out.sort((a, b) => a - b);
+
+  //return [].concat(...array).sort((a,b) => a - b);
+
+  //как обрабатывать многомерные массивы с помощью map и/или reduce?
+}
+//console.log(flattenAndSort([[1, 3, 5], [100], [2, 4, 6]]));
+
+//123
+// Напишите функцию, которая принимает массив чисел (целые числа для тестов) и целевое число. Он должен 
+// найти два разных элемента в массиве, которые при сложении дают целевое значение. Индексы этих пунктов 
+// должны быть затем возвращены в кортеже следующим образом: (index1, index2).
+
+// Для целей этого ката некоторые тесты могут иметь несколько ответов; будут приняты любые действующие 
+// решения.
+
+// Ввод всегда будет действительным (числа будут массивом длиной 2 или больше, и все элементы будут 
+// числами; цель всегда будет суммой двух разных элементов из этого массива).
+
+// twoSum [1, 2, 3] 4 === (0, 2)
+
+function twoSum(arr, num) {
+  let out = [];
+  for (let i = 0; i < arr.length; i++) {
+    for (let k = i + 1; k < arr.length; k++) {
+      if (arr[i] + arr[k] === num) {
+        out.push(i, k);
+      }
+    }
+  }
+
+  //почему не работает этот цикл?
+  // for (const i of arr) {
+  //   for (const [j, k] of arr.entries()) {
+  //     if (i + k === num) {
+  //       out.push(j);
+  //     }
+  //   }
+  // }
+
+  return out;
+}
+//console.log(twoSum([996, 587, 438, 650, 720, 694, 700, 863, 310, 789], 1439));
+
+
