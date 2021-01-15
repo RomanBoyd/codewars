@@ -429,3 +429,118 @@ function findUnique(numbers) {
 //console.log(findUnique([1, 8, 4, 4, 6, 1, 8]));
 
 
+
+//209
+// Вам будет предоставлен массив объектов (ассоциативные массивы в PHP), представляющих данные о разработчиках, 
+// которые подписались на следующую встречу по кодированию, которую вы организуете.
+
+// Ваша задача - вернуть массив, в котором каждый объект будет иметь новое свойство «приветствие» со следующим 
+// строковым значением:
+
+// Привет, <firstName here>, что вам больше всего нравится в <language here>?
+
+// Например, учитывая следующий входной массив:
+
+// var list1 = [
+//   { firstName: 'Sofia', lastName: 'I.', country: 'Argentina', continent: 'Americas', age: 35, language: 'Java' },
+//   { firstName: 'Lukas', lastName: 'X.', country: 'Croatia', continent: 'Europe', age: 35, language: 'Python' },
+//   { firstName: 'Madison', lastName: 'U.', country: 'United States', continent: 'Americas', age: 32, language: 'Ruby' } 
+// ];
+// ваша функция должна вернуть следующий массив:
+
+// [
+//   { firstName: 'Sofia', lastName: 'I.', country: 'Argentina', continent: 'Americas', age: 35, language: 'Java',
+//     greeting: 'Hi Sofia, what do you like the most about Java?'
+//   },
+//   { firstName: 'Lukas', lastName: 'X.', country: 'Croatia', continent: 'Europe', age: 35, language: 'Python',
+//     greeting: 'Hi Lukas, what do you like the most about Python?'
+//   },
+//   { firstName: 'Madison', lastName: 'U.', country: 'United States', continent: 'Americas', age: 32, language: 'Ruby',
+//     greeting: 'Hi Madison, what do you like the most about Ruby?'
+//   } 
+// ];
+// Ноты:
+
+// Порядок свойств в объектах не имеет значения.
+// Входной массив всегда будет действительным и отформатирован, как в приведенном выше примере.
+
+var list1 = [
+    { firstName: 'Sofia', lastName: 'I.', country: 'Argentina', continent: 'Americas', age: 35, language: 'Java' },
+    { firstName: 'Lukas', lastName: 'X.', country: 'Croatia', continent: 'Europe', age: 35, language: 'Python' },
+    { firstName: 'Madison', lastName: 'U.', country: 'United States', continent: 'Americas', age: 32, language: 'Ruby' } 
+  ];
+
+function greetDevelopers(list) {
+    // let res = []
+    // for (const dev of list) {
+    //     let str = dev;
+    //     str['greeting'] = `Hi ${dev.firstName}, what do you like the most about ${dev.language}?`
+    //     res.push(str);
+    // }
+    // return res
+
+    // return list.map(el => {
+    //     el.greeting = `Hi ${el.firstName}, what do you like the most about ${el.language}?`;
+    //     return el;
+    // });
+
+    const res = [];
+    list.forEach(el => {
+        el['greeting'] = `Hi ${el.firstName}, what do you like the most about ${el.language}?`
+        res.push(el)
+    })
+    return res;
+  }
+//console.log(greetDevelopers(list1));
+
+
+
+
+//210
+// Преобразуйте хеш в массив. Ни больше ни меньше.
+
+// {name: 'Jeremy', age: 24, role: 'Software Engineer'}
+// следует преобразовать в
+
+// [["name", "Jeremy"], ["age", 24], ["role", "Software Engineer"]]
+// Примечание . Выходной массив следует отсортировать по алфавиту.
+
+// Удачи!
+
+function convertHashToArray(hash){
+    return Object.entries(hash).sort()
+  }
+  //console.log(convertHashToArray({name: "Jeremy", age: 24, role: "Software Engineer"}));
+
+
+
+
+  //211
+//   Измените kebabizeфункцию так, чтобы она преобразовывала строку ящика верблюда в ящик шашлыка.
+
+// kebabize('camelsHaveThreeHumps') // camels-have-three-humps
+// kebabize('camelsHave3Humps') // camels-have-humps
+// Ноты:
+
+// возвращаемая строка должна содержать только строчные буквы
+
+function kebabize(str) {
+    // let res = '';
+    // const string = str.replace(/[^a-z\D]/g, '')
+    // for (let i = 0; i < string.length; i++) {
+    //     if (i > 0 && string[i] === string[i].toUpperCase()) {
+    //         res += '-'+string[i];
+    //     } else {
+    //         res+= string[i];
+    //     }
+    // }
+    // return res.toLowerCase();
+
+    return str
+        .replace(/[^a-z]/ig, '')
+        .split('')
+        .map((el, i) => i > 0 && el === el.toUpperCase() ? '-' + el : el)
+        .join('')
+        .toLowerCase();
+  }
+  //console.log(kebabize('MyCamelC-ased5String'));
