@@ -1627,6 +1627,37 @@ function small(arr) {
   }
   //console.log([1].flatMap(x => [x, x-1, x+2]));
   
-  
-  
-  
+
+  // https://www.codewars.com/kata/57a049e253ba33ac5e000212/train/javascript
+  // Factorial
+  function factorial(n){
+    // if (n === 0) {
+    //   return 1;
+    // }
+    // return n*factorial(n-1);
+
+    //return n ? n*factorial(n-1) : 1;
+    
+    sum = 1;
+    for (let i = 1; i <= n; i++) {
+      sum*= i;
+    }
+    return sum;
+  }
+  //console.log(factorial(5));
+
+
+
+
+  //https://www.codewars.com/kata/569512b7707bc1b88200002f
+  //Fibonacci
+
+  const fibonacci = n => {
+    // if (n < 2) {
+    //   return n;
+    // }
+    // return fibonacci(n - 1) + fibonacci(n - 2);
+
+    return n < 2 ? n : fibonacci(n-1) + fibonacci(n-2);
+  }
+  //console.log(fibonacci(3))
