@@ -24,7 +24,7 @@
 // numbers.even();    // must return [2, 4]
 // numbers.odd();     // must return [1, 3, 5]
 
-var numbers = [1, 2, 3, 4, 5];
+let numbers = [1, 2, 3, 4, 5];
 
     Array.prototype.square = function() {
         return this.map(el => el ** 2);
